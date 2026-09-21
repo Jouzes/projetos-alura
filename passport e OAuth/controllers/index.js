@@ -1,4 +1,5 @@
 import { User } from "../models/user"
+import bcrypt from "bcrypt";
 
 exports.showIndex = (req, res, next) => {
     res.render('index')
@@ -18,12 +19,38 @@ exports.get404Page = (req, res, next) => {
 
 exports.signup = async (req, res, next) => {
     const {username, email, password} = req.body;
-    const user = new User(username, email, password);
+    const password_hash = await bcrypt.hash(password, 6)
+    const user = new User(username, email, password_hash);
     try {
         await user.save();
         res.redirect("/members");
     } catch(err) {
         console.log(err);
         res.redirect("signup");
+    }
+}
+
+exports.login = async (req, res, next) => {
+    const {email, password} = req.body;
+    const user = await User.findOne(email, password);
+    try {
+        if (user) {
+            res.redirect("/members");
+        } else {
+            res.render("index");
+        }
+    } catch (err) {
+        console.log(err);
+        res.render("index");
+    }
+}
+
+exports.checkAuth = async (req, res, next) => {
+    const auth = false;
+    
+    if (auth) {
+        next()
+    } else {
+        res.redirect("/");
     }
 }
