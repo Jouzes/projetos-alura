@@ -1,6 +1,6 @@
-const express = require('express')
-const routes = require('./routes/routes')
-const mongoConnect = require('./util/database').mongoConnect
+import express from 'express'
+import routes from './routes/routes'
+import { mongoConnect } from './util/database'
 
 const app = express();
 const port = 3000;
