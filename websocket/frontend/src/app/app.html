@@ -8,11 +8,11 @@
     <header class="note-header">
       <h2 id="note-title">Suas anotações</h2>
     </header>
-    <textarea id="note-text" placeholder="Comece a escrever aqui…" spellcheck="true"></textarea>
+    <textarea id="note-text" placeholder="Comece a escrever aqui…" spellcheck="true" (input)="sendText($event)" [value]="text()"></textarea>
   </section>
 </main>
 
 <div class="status" role="status">
-  <span class="status-dot" aria-hidden="true"></span>
-  Desconectado
+  <span class="status-dot" aria-hidden="true" [class.online]="conected()"></span>
+  {{conected() ? 'Conectado' : 'Desconectado'}}
 </div>

@@ -34,7 +34,6 @@ h1 {
   text-align: center;
 }
 
-/* Centraliza o bloco no espaço abaixo da navbar. */
 .workspace {
   flex: 1;
   display: grid;
@@ -102,7 +101,6 @@ textarea:focus-visible {
   border-color: #4f46e5;
 }
 
-/* Fixa o status no canto da janela, mesmo ao rolar. */
 .status {
   position: fixed;
   right: 24px;
@@ -124,6 +122,10 @@ textarea:focus-visible {
   height: 8px;
   border-radius: 50%;
   background: #f59e0b;
+}
+
+.status-dot.online {
+  background: #22c55e;
 }
 
 @media (max-width: 600px) {
