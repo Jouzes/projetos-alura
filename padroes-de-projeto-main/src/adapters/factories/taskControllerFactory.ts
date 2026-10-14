@@ -4,12 +4,13 @@ import { TaskMongoRepository } from "../../dataSources/db/repository/taskMongoRe
 import { AddTaskController } from "../controllers/task/addTask";
 import { DateValidatorAdapter } from "../dateValidatorAdapter";
 import { LogErrorControllerDecorator } from "../decorators/logErrorControllerDecorator";
+import { AddTaskValidationCompositeFactory } from "./addTaskValidationCompositeFactory";
 
 export const taskControllerFactory = () => {
   const dateValidatorAdapter = new DateValidatorAdapter();
   const taskMongoRepository = new TaskMongoRepository();
   const dbAddTask = new DbAddTask(taskMongoRepository);
-  const taskController = new AddTaskController(dbAddTask, dateValidatorAdapter);
+  const taskController = new AddTaskController(dbAddTask, AddTaskValidationCompositeFactory());
   const logErrorMongoRepository = new LogErrorMongoRepository();
   return new LogErrorControllerDecorator(taskController, logErrorMongoRepository);
 };
