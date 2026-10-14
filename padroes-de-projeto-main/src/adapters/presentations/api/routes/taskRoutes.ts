@@ -1,11 +1,7 @@
-import { Request, Response, Router } from "express";
-import { AddTaskController } from "../../../controllers/task/addTask";
+import { Router } from "express";
+import { expressRouteAdapter } from "../../../expressRouteAdapter";
+import { taskControllerFactory } from "../../../factories/taskControllerFactory";
 
 export default (router: Router): void => {
-  const addTaskController = new AddTaskController();
-  router.post(
-    "/tasks",
-    async (req: Request, res: Response) =>
-      await addTaskController.handle(req, res)
-  );
+  router.post("/tasks", expressRouteAdapter(taskControllerFactory()));
 };
